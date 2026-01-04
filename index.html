@@ -18,3 +18,62 @@
   <img src="images/IMG_8366.HEIC">
   <h3>yellow bell</h3>
 </article>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Image with Viewport Sound</title>
+  <style>
+    body {
+      height: 200vh; /* just to allow scrolling for testing */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    img {
+      max-width: 400px;
+    }
+  </style>
+</head>
+<body>
+
+<img 
+  id="soundImage"
+  src="images/bloodrobbonbracelet.jpg"
+  alt="Describe the image here"
+>
+
+<audio 
+  id="imageSound"
+  src="audio/Ringherkentuckygirl2.wav"
+  loop
+></audio>
+
+<script>
+  const image = document.getElementById("soundImage");
+  const audio = document.getElementById("imageSound");
+
+  // Required for browser autoplay policies
+  let userInteracted = false;
+  document.addEventListener("click", () => {
+    userInteracted = true;
+  }, { once: true });
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && userInteracted) {
+          audio.play();
+        } else {
+          audio.pause();
+        }
+      });
+    },
+    { threshold: 0.5 } // 50% of image must be visible
+  );
+
+  observer.observe(image);
+</script>
+
+</body>
+</html>
