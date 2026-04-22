@@ -158,6 +158,123 @@
 </head>
 <body>
 
+  <div class="container">
+
+  <div class=post">
+<img 
+  id="soundImage"
+  src="images/Pigshirt.jpg"
+  alt="Tiger"
+>
+
+<audio 
+  id="imageSound"
+  src="audio/ciorwinter.mp3"
+  loop
+></audio>
+
+<script>
+  const image = document.getElementById("soundImage");
+  const audio = document.getElementById("imageSound");
+
+  // Required for browser autoplay policies
+  let userInteracted = false;
+  document.addEventListener("click", () => {
+    userInteracted = true;
+  }, { once: true });
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && userInteracted) {
+          audio.play();
+        } else {
+          audio.pause();
+        }
+      });
+    },
+    { threshold: 0.5 } // 10% of image must be visible
+  );
+
+  observer.observe(image);
+</script>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Image Sound Trigger</title>
+  <style>
+    body {
+      height: 200vh; /* just to allow scrolling */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    img {
+      width: 300px;
+    }
+  </style>
+</head>
+<body>
+
+  <img id="myImage" src="images/Tiger.png" alt="My Image">
+  <audio id="myAudio" src="audio/coirwinter.mp3"></audio>
+</div>
+  <script>
+    const image = document.getElementById("myImage");
+    const audio = document.getElementById("myAudio");
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          audio.play();
+        } else {
+          audio.pause();
+          audio.currentTime = 0;
+        }
+      });
+    }, {
+      threshold: 0.5 // triggers when 50% of image is visible
+    });
+
+    observer.observe(image);
+  </script>
+
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Images with Sound</title>
+
+  <style>
+    body {
+      height: 200vh; /* allows scrolling */
+      margin: 0;
+      font-family: sans-serif;
+    }
+
+    .container {
+      display: flex;
+      gap: 20px;
+      padding: 40px;
+    }
+
+    .post {
+      flex: 1;
+    }
+
+    .post img {
+      width: 100%;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
 <div class="container">
 
   <div class="post">
