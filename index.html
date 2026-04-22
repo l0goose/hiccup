@@ -75,5 +75,39 @@
   observer.observe(image);
 </script>
 
-</body>
+</body><img 
+  id="soundImage"
+  src="images/Tiger.heic"
+  alt="Describe the image here"
+>
+
+<audio 
+  id="imageSound"
+  src="audio/coirwinter.mp3"
+  loop
+></audio>
+
+<script>
+  const image = document.getElementById("soundImage");
+  const audio = document.getElementById("imageSound");
+
+  // Required for browser autoplay policies
+  let userInteracted = false;
+  document.addEventListener("click", () => {
+    userInteracted = true;
+  }, { once: true });
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && userInteracted) {
+          audio.play();
+        } else {
+          audio.pause();
+        }
+      });
+    },
+    { threshold: 0.5 } // 50% of image must be visible
+  );
+
 </html>
