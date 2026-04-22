@@ -140,6 +140,49 @@
   observer.observe(image);
 </script>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Image Sound Trigger</title>
+  <style>
+    body {
+      height: 200vh; /* just to allow scrolling */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    img {
+      width: 300px;
+    }
+  </style>
+</head>
+<body>
 
+  <img id="myImage" src="images/Tiger.heic" alt="My Image">
+  <audio id="myAudio" src="audio/coirwinter.mp3"></audio>
+
+  <script>
+    const image = document.getElementById("myImage");
+    const audio = document.getElementById("myAudio");
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          audio.play();
+        } else {
+          audio.pause();
+          audio.currentTime = 0;
+        }
+      });
+    }, {
+      threshold: 0.5 // triggers when 50% of image is visible
+    });
+
+    observer.observe(image);
+  </script>
+
+</body>
+</html>
 
 
