@@ -185,4 +185,71 @@
 </body>
 </html>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Images with Sound</title>
 
+  <style>
+    body {
+      height: 200vh; /* allows scrolling */
+      margin: 0;
+      font-family: sans-serif;
+    }
+
+    .container {
+      display: flex;
+      gap: 20px;
+      padding: 40px;
+    }
+
+    .post {
+      flex: 1;
+    }
+
+    .post img {
+      width: 100%;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="post">
+    <img class="sound-image" src="images/Pink Skull Patch.jpg alt="">
+    <audio src="audio/coirwinter.mp3"></audio>
+  </div>
+
+  <div class="post">
+    <img class="sound-image" src="images/tiger.png" alt="">
+    <audio src="audio/coirwinter"></audio>
+  </div>
+
+</div>
+
+<script>
+  const posts = document.querySelectorAll(".post");
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const audio = entry.target.querySelector("audio");
+
+      if (entry.isIntersecting) {
+        audio.play();
+      } else {
+        audio.pause();
+        audio.currentTime = 0;
+      }
+    });
+  }, {
+    threshold: 0.5
+  });
+
+  posts.forEach(post => observer.observe(post));
+</script>
+
+</body>
+</html>
